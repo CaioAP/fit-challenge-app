@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue';
+import router from '@/router';
+import { useAuthStore } from '@/stores/auth';
 import BaseForm from '@/components/BaseForm.vue';
 import BaseContainer from '@/components/BaseContainer.vue';
 import BaseRow from '@/components/BaseRow.vue';
 import BaseCol from '@/components/BaseCol.vue';
 import BaseInputText from '@/components/BaseInputText.vue';
 import BaseButton from '@/components/BaseButton.vue';
-import { useAuthStore } from '@/stores/auth';
-import router from '@/router';
 
 interface Form {
   email: string;
@@ -41,6 +41,7 @@ const rules = computed<Rules>(() => {
 const authStore = useAuthStore();
 
 const submit = async () => {
+  if (!valid.value) return;
   const result = await authStore.login(form);
   if (result) {
     router.push('/home');

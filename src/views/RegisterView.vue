@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue';
+import router from '@/router';
+import { useAuthStore } from '@/stores/auth';
 import { useMask } from '@/composables/mask';
 import BaseForm from '@/components/BaseForm.vue';
 import BaseContainer from '@/components/BaseContainer.vue';
@@ -55,8 +57,15 @@ const rules = computed<Rules>(() => {
   };
 });
 
-const submit = () => {
+const authStore = useAuthStore();
+
+const submit = async () => {
   if (!valid.value) return;
+  form.phone = form.phone.replace(/\D/g, '');
+  const result = await authStore.register(form);
+  if (result) {
+    router.push('/home');
+  }
 };
 </script>
 

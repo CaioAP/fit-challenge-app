@@ -16,7 +16,7 @@ const props = defineProps({
   modelValue: Boolean,
   validateOn: {
     type: String as () => ValidateOnType,
-    default: 'input'
+    default: 'lazy'
   }
 });
 const model = defineModel<boolean>();
