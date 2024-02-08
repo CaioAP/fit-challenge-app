@@ -5,7 +5,7 @@ const githubLink = computed(() => 'https://github.com/CaioAP');
 </script>
 
 <template>
-  <footer>
+  <footer class="my-4">
     <p class="text-center">
       Developed with ❤️ by
       <a :href="githubLink" target="_blank">Caio Alfonso</a>
