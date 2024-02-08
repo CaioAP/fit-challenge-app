@@ -6,6 +6,8 @@ import BaseRow from '@/components/BaseRow.vue';
 import BaseCol from '@/components/BaseCol.vue';
 import BaseInputText from '@/components/BaseInputText.vue';
 import BaseButton from '@/components/BaseButton.vue';
+import { useAuthStore } from '@/stores/auth';
+import router from '@/router';
 
 interface Form {
   email: string;
@@ -36,8 +38,13 @@ const rules = computed<Rules>(() => {
   };
 });
 
-const submit = () => {
-  console.log('submit');
+const authStore = useAuthStore();
+
+const submit = async () => {
+  const result = await authStore.login(form);
+  if (result) {
+    router.push('/home');
+  }
 };
 </script>
 
