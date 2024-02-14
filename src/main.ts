@@ -3,7 +3,6 @@ import '@mdi/font/css/materialdesignicons.css';
 
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
-import axios from 'axios';
 import 'vuetify/styles';
 import { createVuetify } from 'vuetify';
 import * as components from 'vuetify/components';
@@ -22,11 +21,6 @@ const vuetify = createVuetify({
     messages: { pt }
   }
 });
-
-axios.defaults.baseURL = 'http://localhost:9000';
-axios.defaults.headers.post['Content-Type'] = 'application/json';
-axios.defaults.headers.post['Accept'] = 'application/json';
-axios.defaults.withCredentials = true;
 
 const app = createApp(App);
 

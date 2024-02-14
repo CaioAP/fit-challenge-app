@@ -1,8 +1,10 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { useAlertStore } from './alert';
+import { useAxios } from '@/composables/axios';
 
+const axios = useAxios();
 const alertStore = useAlertStore();
 
 const getErrorMessage = (error: unknown | Error | AxiosError) => {
@@ -44,7 +46,9 @@ export const useAuthStore = defineStore('auth', () => {
     password: string;
   }): Promise<boolean> => {
     try {
-      const { data } = await axios.post('/login', form);
+      const { data } = await axios.post('/login', form, {
+        withCredentials: true
+      });
       id.value = data.id;
       name.value = data.name;
       alertStore.showAlert('success', formatMessage(data.message));
@@ -63,7 +67,9 @@ export const useAuthStore = defineStore('auth', () => {
     password: string;
   }): Promise<boolean> => {
     try {
-      const { data } = await axios.post('/register', form);
+      const { data } = await axios.post('/register', form, {
+        withCredentials: true
+      });
       id.value = data.id;
       name.value = data.name;
       alertStore.showAlert('success', formatMessage(data.message));
