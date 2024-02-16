@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import IndexView from '@/views/IndexView.vue';
+import HomeView from '@/views/HomeView.vue';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { useAuth } from '@/composables/auth';
@@ -10,9 +10,9 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'index',
-      component: IndexView,
-      meta: { title: 'Home', layout: DefaultLayout }
+      name: 'home',
+      component: HomeView,
+      meta: { title: 'Home' }
     },
     {
       path: '/login',
@@ -27,10 +27,20 @@ const router = createRouter({
       meta: { title: 'Register', layout: AuthLayout, guest: true }
     },
     {
-      path: '/home',
-      name: 'home',
-      component: () => import('@/views/HomeView.vue'),
-      meta: { title: 'Home', layout: DefaultLayout, requiresAuth: true }
+      path: '/challenges',
+      name: 'challenges',
+      component: () => import('@/views/ChallengesView.vue'),
+      meta: { title: 'Challenges', layout: DefaultLayout, requiresAuth: true }
+    },
+    {
+      path: '/challenge/create',
+      name: 'challenge-create',
+      component: () => import('@/views/ChallengeCreateView.vue'),
+      meta: {
+        title: 'New Challenge',
+        layout: DefaultLayout,
+        requiresAuth: true
+      }
     }
   ]
 });
@@ -41,7 +51,7 @@ router.beforeEach(async (to, _, next) => {
     return next({ name: 'login' });
   }
   if (to.meta.guest && authenticated) {
-    return next({ name: 'home' });
+    return next({ name: 'challenges' });
   }
   next();
 });

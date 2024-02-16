@@ -13,4 +13,8 @@ import TheHeader from '@/components/TheHeader.vue';
   <TheFooter />
 </template>
 
-<style scoped></style>
+<style scoped>
+main.container {
+  margin-bottom: auto;
+}
+</style>
