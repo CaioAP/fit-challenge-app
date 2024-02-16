@@ -8,7 +8,9 @@ const title = computed(() => {
 
 <template>
   <header class="container mt-4">
-    <h1 class="text-center text-amber">{{ title }}</h1>
+    <router-link class="text-decoration-none" :to="{ name: 'home' }">
+      <h1 class="text-center text-amber">{{ title }}</h1>
+    </router-link>
   </header>
 </template>
 

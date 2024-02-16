@@ -64,7 +64,7 @@ const submit = async () => {
   form.phone = form.phone.replace(/\D/g, '');
   const result = await authStore.register(form);
   if (result) {
-    router.push('/home');
+    router.push('/challenges');
   }
 };
 </script>
@@ -146,4 +146,3 @@ const submit = async () => {
 </template>
 
 <style scoped></style>
-@/directives/mask

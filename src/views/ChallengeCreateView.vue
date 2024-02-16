@@ -4,6 +4,7 @@ import BaseForm from '@/components/BaseForm.vue';
 import BaseRow from '@/components/BaseRow.vue';
 import BaseCol from '@/components/BaseCol.vue';
 import BaseInputText from '@/components/BaseInputText.vue';
+import BaseButton from '@/components/BaseButton.vue';
 
 interface Form {
   name: string;
