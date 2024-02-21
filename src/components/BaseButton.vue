@@ -6,15 +6,20 @@ type VariantType =
   | 'tonal'
   | 'outlined'
   | 'plain';
+type SizeType = 'x-small' | 'small' | 'default' | 'large' | 'x-large';
 const props = defineProps({
   color: String,
   block: Boolean,
   flat: Boolean,
   icon: String,
   elevation: String || Number,
-  to: String,
+  to: Object,
   disabled: Boolean,
   loading: Boolean,
+  size: {
+    type: String as () => SizeType,
+    default: 'default'
+  },
   variant: {
     type: String as () => VariantType,
     default: 'elevated'
@@ -29,6 +34,7 @@ const props = defineProps({
 <template>
   <v-btn
     :type="props.type"
+    :size="props.size"
     :variant="props.variant"
     :color="props.color"
     :block="props.block"

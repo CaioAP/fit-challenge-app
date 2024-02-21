@@ -83,6 +83,10 @@ h2 {
   font-size: 2rem;
 }
 
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
 .container {
   max-width: 600px;
   margin: 0 auto;
