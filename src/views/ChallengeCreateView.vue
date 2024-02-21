@@ -8,8 +8,11 @@ import BaseInputNumber from '@/components/BaseInputNumber.vue';
 import BaseTextarea from '@/components/BaseTextarea.vue';
 import BaseButton from '@/components/BaseButton.vue';
 import { useMask } from '@/composables/mask';
+import type Challenge from '@/interfaces/challenge';
+import { useChallengeStore } from '@/stores/challenge';
+import router from '@/router';
 
-interface Form {
+interface Form extends Challenge {
   name: string;
   description: string;
   goal: number;
@@ -24,6 +27,8 @@ interface Rules {
   startDate: ((v: string) => boolean | string)[];
   finishDate: ((v: string) => boolean | string)[];
 }
+
+const challengeStore = useChallengeStore();
 
 const valid = ref(true);
 const form = reactive<Form>({
@@ -45,7 +50,10 @@ const rules = computed<Rules>(() => {
 
 const submit = async () => {
   if (!valid.value) return;
-  console.log('submit');
+  const result = await challengeStore.create(form);
+  if (result) {
+    router.push('/challenges');
+  }
 };
 </script>
 

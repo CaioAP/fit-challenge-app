@@ -1,8 +1,9 @@
 import { ref } from 'vue';
 import { useAxios } from './axios';
+import type User from '@/interfaces/user';
 
 const axios = useAxios();
-const user = ref(null);
+const user = ref<User | null>(null);
 
 export function useAuth() {
   const isAuth = async () => {
