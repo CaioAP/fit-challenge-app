@@ -2,8 +2,8 @@
 import { reactive } from 'vue';
 import BaseRow from '@/components/BaseRow.vue';
 import BaseCol from '@/components/BaseCol.vue';
+import BaseButton from '@/components/BaseButton.vue';
 import CardChallenge from '@/components/challenge/CardChallenge.vue';
-import NewChallengeCard from '@/components/challenge/NewChallengeCard.vue';
 
 const challenges = reactive([
   {
@@ -49,7 +49,14 @@ const challenges = reactive([
   <h2 class="text-center">Meus desafios</h2>
   <BaseRow class="mt-8" align="center" justify="center">
     <BaseCol cols="12">
-      <NewChallengeCard />
+      <BaseButton
+        color="amber"
+        variant="flat"
+        :to="{ name: 'challenge-create' }"
+        block
+      >
+        Criar desafio
+      </BaseButton>
     </BaseCol>
     <BaseCol v-for="challenge in challenges" :key="challenge.id" cols="12">
       <CardChallenge
