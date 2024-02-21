@@ -7,6 +7,7 @@ import BaseContainer from '@/components/BaseContainer.vue';
 import BaseRow from '@/components/BaseRow.vue';
 import BaseCol from '@/components/BaseCol.vue';
 import BaseInputText from '@/components/BaseInputText.vue';
+import BaseInputPassword from '@/components/BaseInputPassword.vue';
 import BaseButton from '@/components/BaseButton.vue';
 
 interface Form {
@@ -44,7 +45,7 @@ const submit = async () => {
   if (!valid.value) return;
   const result = await authStore.login(form);
   if (result) {
-    router.push('/home');
+    router.push('/challenges');
   }
 };
 </script>
@@ -59,21 +60,16 @@ const submit = async () => {
             :rules="rules.email"
             type="email"
             label="E-mail"
-            variant="outlined"
-            hide-details="auto"
-            prepend-inner-icon="mdi-at"
+            left-icon="mdi-at"
             required
           />
         </BaseCol>
         <BaseCol cols="12">
-          <BaseInputText
+          <BaseInputPassword
             v-model="form.password"
             :rules="rules.password"
-            type="password"
             label="Senha"
-            variant="outlined"
-            hide-details="auto"
-            prepend-inner-icon="mdi-lock"
+            left-icon="mdi-lock-outline"
             required
           />
         </BaseCol>
@@ -82,7 +78,7 @@ const submit = async () => {
         </BaseCol>
         <BaseCol cols="12">
           <BaseButton
-            to="/register"
+            :to="{ name: 'register' }"
             variant="outlined"
             color="amber-darken-1"
             block

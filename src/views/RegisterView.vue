@@ -8,6 +8,7 @@ import BaseContainer from '@/components/BaseContainer.vue';
 import BaseRow from '@/components/BaseRow.vue';
 import BaseCol from '@/components/BaseCol.vue';
 import BaseInputText from '@/components/BaseInputText.vue';
+import BaseInputPassword from '@/components/BaseInputPassword.vue';
 import BaseButton from '@/components/BaseButton.vue';
 
 interface Form {
@@ -78,7 +79,7 @@ const submit = async () => {
             v-model="form.name"
             :rules="rules.name"
             label="Nome"
-            left-icon="mdi-account"
+            left-icon="mdi-account-outline"
             required
           />
         </BaseCol>
@@ -105,22 +106,20 @@ const submit = async () => {
           />
         </BaseCol>
         <BaseCol cols="12">
-          <BaseInputText
+          <BaseInputPassword
             v-model="form.password"
             :rules="rules.password"
-            type="password"
             label="Senha"
-            left-icon="mdi-lock"
+            left-icon="mdi-lock-outline"
             required
           />
         </BaseCol>
         <BaseCol cols="12">
-          <BaseInputText
+          <BaseInputPassword
             v-model="form.passwordConfirmation"
             :rules="rules.passwordConfirmation"
-            type="password"
             label="Confirmar Senha"
-            left-icon="mdi-lock"
+            left-icon="mdi-lock-outline"
             required
           />
         </BaseCol>
@@ -131,7 +130,7 @@ const submit = async () => {
         </BaseCol>
         <BaseCol cols="12">
           <BaseButton
-            to="/login"
+            :to="{ name: 'login' }"
             variant="outlined"
             color="amber-darken-1"
             block
