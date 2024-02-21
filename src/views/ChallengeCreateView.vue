@@ -4,52 +4,42 @@ import BaseForm from '@/components/BaseForm.vue';
 import BaseRow from '@/components/BaseRow.vue';
 import BaseCol from '@/components/BaseCol.vue';
 import BaseInputText from '@/components/BaseInputText.vue';
+import BaseInputNumber from '@/components/BaseInputNumber.vue';
+import BaseTextarea from '@/components/BaseTextarea.vue';
 import BaseButton from '@/components/BaseButton.vue';
+import { useMask } from '@/composables/mask';
 
 interface Form {
   name: string;
-  phone: string;
-  email: string;
-  password: string;
-  passwordConfirmation: string;
+  description: string;
+  goal: number;
+  maxPerDay: number;
+  startDate: string;
+  finishDate: string;
 }
 
 interface Rules {
   name: ((v: string) => boolean | string)[];
-  phone: ((v: string) => boolean | string)[];
-  email: ((v: string) => boolean | string)[];
-  password: ((v: string) => boolean | string)[];
-  passwordConfirmation: ((v: string) => boolean | string)[];
+  description: ((v: string) => boolean | string)[];
+  startDate: ((v: string) => boolean | string)[];
+  finishDate: ((v: string) => boolean | string)[];
 }
 
 const valid = ref(true);
 const form = reactive<Form>({
-  email: '',
   name: '',
-  phone: '',
-  password: '',
-  passwordConfirmation: ''
+  description: '',
+  goal: 10,
+  maxPerDay: 1,
+  startDate: '',
+  finishDate: ''
 });
 const rules = computed<Rules>(() => {
   return {
     name: [(v: string) => !!v || 'Nome é obrigatório'],
-    phone: [
-      (v: string) => !!v || 'Telefone é obrigatório',
-      (v: string) => (v && v.length === 15) || 'Telefone deve ser válido'
-    ],
-    email: [
-      (v: string) => !!v || 'E-mail é obrigatório',
-      (v: string) => /.+@.+\..+/.test(v) || 'E-mail deve ser válido'
-    ],
-    password: [
-      (v: string) => !!v || 'Senha é obrigatório',
-      (v: string) =>
-        (v && v.length >= 8) || 'Senha deve conter pelo menos 8 caracteres'
-    ],
-    passwordConfirmation: [
-      (v: string) => !!v || 'Confirmação de senha é obrigatório',
-      (v: string) => v === form.password || 'As senhas devem ser iguais'
-    ]
+    description: [(v: string) => !!v || 'Descrição é obrigatório'],
+    startDate: [(v: string) => !!v || 'Data inicial é obrigatório'],
+    finishDate: [(v: string) => !!v || 'Data final é obrigatório']
   };
 });
 
@@ -68,61 +58,67 @@ const submit = async () => {
           v-model="form.name"
           :rules="rules.name"
           label="Nome"
-          left-icon="mdi-account"
+          left-icon="mdi-account-outline"
+          required
+        />
+      </BaseCol>
+      <BaseCol cols="12">
+        <BaseTextarea
+          v-model="form.description"
+          :rules="rules.description"
+          label="Descrição"
+          required
+        />
+      </BaseCol>
+      <BaseCol cols="12" sm="6">
+        <BaseInputNumber
+          v-model="form.goal"
+          label="Objetivo (dias)"
+          left-icon="mdi-trophy-outline"
+          :min="1"
+          required
+        />
+      </BaseCol>
+      <BaseCol cols="12" sm="6">
+        <BaseInputNumber
+          v-model="form.maxPerDay"
+          label="Max. atvd. por dia"
+          left-icon="mdi-weight-lifter"
+          :min="1"
+          :max="10"
           required
         />
       </BaseCol>
       <BaseCol cols="12">
         <BaseInputText
-          v-model="form.phone"
-          :rules="rules.phone"
-          label="Telefone"
-          left-icon="mdi-cellphone-basic"
-          placeholder="(##) #####-####"
+          v-model="form.startDate"
+          :rules="rules.startDate"
+          placeholder="dd/mm/aaaa"
+          label="Data inicial"
+          left-icon="mdi-calendar-outline"
           required
+          @input="form.startDate = useMask('##/##/####', form.startDate)"
         />
       </BaseCol>
       <BaseCol cols="12">
         <BaseInputText
-          v-model="form.email"
-          :rules="rules.email"
-          type="email"
-          label="E-mail"
-          left-icon="mdi-at"
-          placeholder="exemplo@email.com"
+          v-model="form.finishDate"
+          :rules="rules.finishDate"
+          placeholder="dd/mm/aaaa"
+          label="Data inicial"
+          left-icon="mdi-calendar-outline"
           required
+          @input="form.finishDate = useMask('##/##/####', form.finishDate)"
         />
       </BaseCol>
       <BaseCol cols="12">
-        <BaseInputText
-          v-model="form.password"
-          :rules="rules.password"
-          type="password"
-          label="Senha"
-          left-icon="mdi-lock"
-          required
-        />
-      </BaseCol>
-      <BaseCol cols="12">
-        <BaseInputText
-          v-model="form.passwordConfirmation"
-          :rules="rules.passwordConfirmation"
-          type="password"
-          label="Confirmar Senha"
-          left-icon="mdi-lock"
-          required
-        />
-      </BaseCol>
-      <BaseCol cols="12">
-        <BaseButton type="submit" color="amber" block flat>
-          Criar conta
-        </BaseButton>
+        <BaseButton type="submit" color="amber" block flat> Salvar </BaseButton>
       </BaseCol>
       <BaseCol cols="12">
         <BaseButton
-          to="/login"
           variant="outlined"
           color="amber-darken-1"
+          :to="{ name: 'challenges' }"
           block
           flat
         >

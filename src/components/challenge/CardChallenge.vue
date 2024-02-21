@@ -73,7 +73,7 @@ if (isInProgress.value) {
     <template #append>
       <BaseIcon
         v-if="hasNotStarted"
-        icon="mdi-calendar"
+        icon="mdi-calendar-outline"
         color="amber-darken-2"
       />
       <BaseIcon
