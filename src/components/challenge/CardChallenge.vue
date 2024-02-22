@@ -11,7 +11,7 @@ const props = defineProps({
   id: Number,
   title: String,
   description: String,
-  position: Number,
+  ranking: Number,
   participants: Number,
   progress: {
     type: Number,
@@ -97,7 +97,7 @@ if (isInProgress.value) {
         </BaseCol>
         <BaseCol cols="12" sm="6">
           <BaseIcon icon="mdi-trophy-outline" class="mr-1" />
-          Posição: {{ props.position }}°
+          Posição: {{ props.ranking }}°
         </BaseCol>
         <BaseCol cols="12" sm="6">
           <BaseIcon icon="mdi-account-group" class="mr-1" />
