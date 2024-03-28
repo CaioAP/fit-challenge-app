@@ -8,6 +8,7 @@ import { useUtils } from '@/composables/utils';
 import { DATE_FORMAT } from '@/enums/dateFormat';
 import type Challenge from '@/interfaces/challenge';
 import type ChallengeCard from '@/interfaces/challengeCard';
+import type ChallengeView from '@/interfaces/challengeView';
 
 const axios = useAxios();
 const alertStore = useAlertStore();
@@ -17,7 +18,6 @@ const { parseDate } = useUtils();
 
 export const useChallengeStore = defineStore('challenge', () => {
   const challenges = ref<ChallengeCard[]>([]);
-  const challenge = ref<Challenge | null>(null);
 
   const create = async (form: Challenge) => {
     if (user.value !== null && !user.value.id) {
@@ -38,7 +38,6 @@ export const useChallengeStore = defineStore('challenge', () => {
         finishDate,
         personId: user.value?.id
       });
-      // challenges.value.push(data);
       alertStore.showAlert('success', formatMessage('registered'));
       return true;
     } catch (error) {
@@ -60,10 +59,21 @@ export const useChallengeStore = defineStore('challenge', () => {
     }
   };
 
+  const get = async (id: number): Promise<ChallengeView | null> => {
+    try {
+      const { data } = await axios.get(`/challenges/${id}`);
+      return data;
+    } catch (error) {
+      const message = getErrorMessage(error);
+      alertStore.showAlert('error', formatMessage(message));
+      return null;
+    }
+  };
+
   return {
     challenges,
-    challenge,
     create,
-    getChallenges
+    getChallenges,
+    get
   };
 });

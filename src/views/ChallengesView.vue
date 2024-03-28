@@ -46,8 +46,8 @@ onMounted(async () => {
         :participants="challenge.participants"
         :progress="challenge.activities"
         :goal="challenge.goal"
-        :startDate="challenge.startDate"
-        :finishDate="challenge.finishDate"
+        :startDate="new Date(challenge.startDate)"
+        :finishDate="new Date(challenge.finishDate)"
       />
     </BaseCol>
   </BaseRow>

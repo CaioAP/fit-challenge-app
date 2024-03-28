@@ -33,6 +33,12 @@ const router = createRouter({
       meta: { title: 'Challenges', layout: DefaultLayout, requiresAuth: true }
     },
     {
+      path: '/challenge/:id',
+      name: 'challenge',
+      component: () => import('@/views/ChallengeView.vue'),
+      meta: { title: 'Challenge', layout: DefaultLayout, requiresAuth: true }
+    },
+    {
       path: '/challenge/create',
       name: 'challenge-create',
       component: () => import('@/views/ChallengeCreateView.vue'),

@@ -27,17 +27,17 @@ const completedPercentage = computed(() => {
 
 <template>
   <div class="progress-wrapper">
-    <slot name="value">{{ props.value }}</slot>
+    <slot name="value">{{ value }}</slot>
     <div
       class="progress-linear"
-      :style="`height: ${$props.height}; background-color: var(--${$props.color}-color-lighten-4)`"
+      :style="`height: ${height}; background-color: var(--${color}-color-lighten-4)`"
     >
       <div
         class="progress-linear--active"
-        :style="`width: ${completedPercentage}%; background-color: var(--${$props.color}-color)`"
+        :style="`width: ${completedPercentage}%; background-color: var(--${color}-color)`"
       ></div>
     </div>
-    <slot name="maxValue">{{ props.maxValue }}</slot>
+    <slot name="maxValue">{{ maxValue }}</slot>
   </div>
 </template>
 

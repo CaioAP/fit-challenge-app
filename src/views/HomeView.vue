@@ -37,7 +37,7 @@ const whatYouCanDoList = computed(() => [
       </h3>
       <BaseButton
         class="btn-join my-4"
-        to="/login"
+        :to="{ name: 'login' }"
         color="amber"
         size="large"
         flat
